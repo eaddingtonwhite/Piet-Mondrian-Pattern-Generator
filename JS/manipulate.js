@@ -57,6 +57,25 @@ $(document).ready(function () {
     currentBox.downCount = newBoxHeight;
   }
 
+  function updateFromAbove(grid, x, y) {
+    //Decrement current boxes downCount based off above box
+    grid[x][y].downCount = grid[x][y - 1].downCount - 1;
+    grid[x][y].sideCount = grid[x][y - 1].sideCount;
+
+    //Set current box master width and height
+    grid[x][y].currentShape.boxWidth = grid[x][y - 1].currentShape.boxWidth;
+    grid[x][y].currentShape.boxHeight = grid[x][y - 1].currentShape.boxHeight;
+  }
+
+  function updateFromLeft(grid, x, y) {
+    //Decrement current boxes sideCount based off left box
+    grid[x][y].downCount = grid[x - 1][y].downCount;
+    grid[x][y].sideCount = grid[x - 1][y].sideCount - 1;
+    //Set current box master width and height based off left box
+    grid[x][y].currentShape.boxWidth = grid[x - 1][y].currentShape.boxWidth;
+    grid[x][y].currentShape.boxHeight = grid[x - 1][y].currentShape.boxHeight;
+  }
+
   function drawGrid(grid) {
     //Loop through rows
     for (var x = 0; x < grid.length - 1; x++) {
@@ -77,12 +96,7 @@ $(document).ready(function () {
             drawBox(grid, x, y);
           } else {
             //Decrement current boxes downCount based off above box
-            currentBox.downCount = grid[x][y - 1].downCount - 1;
-            currentBox.sideCount = grid[x][y - 1].sideCount;
-
-            //Set current box master width and height
-            currentBox.currentShape.boxWidth = grid[x][y - 1].currentShape.boxWidth;
-            currentBox.currentShape.boxHeight = grid[x][y - 1].currentShape.boxHeight;
+            updateFromAbove(grid, x, y);
           }
 
           //Check if first row but not first column
@@ -92,11 +106,7 @@ $(document).ready(function () {
             drawBox(grid, x, y);
           } else {
             //Decrement current boxes sideCount based off left box
-            currentBox.downCount = grid[x - 1][y].downCount;
-            currentBox.sideCount = grid[x - 1][y].sideCount - 1;
-            //Set current box master width and height based off left box
-            currentBox.currentShape.boxWidth = grid[x - 1][y].currentShape.boxWidth;
-            currentBox.currentShape.boxHeight = grid[x - 1][y].currentShape.boxHeight;
+            updateFromLeft(grid, x, y);
           }
 
           //Not on first row or column
@@ -108,30 +118,17 @@ $(document).ready(function () {
 
             //Check if left done and above not
           } else if (grid[x - 1][y].sideCount < 1) {
-
-            currentBox.downCount = grid[x][y - 1].downCount - 1;
-            currentBox.sideCount = grid[x][y - 1].sideCount;
             //Set current box master width and height based off above box
-            currentBox.currentShape.boxWidth = grid[x][y - 1].currentShape.boxWidth;
-            currentBox.currentShape.boxHeight = grid[x][y - 1].currentShape.boxHeight;
+            updateFromAbove(grid, x, y);
 
             //Check if above done and left not
           } else if (grid[x][y - 1].downCount < 1) {
-
-            currentBox.downCount = grid[x - 1][y].downCount;
-            currentBox.sideCount = grid[x - 1][y].sideCount - 1;
             //Set current box master width and height based off left box
-            currentBox.currentShape.boxWidth = grid[x - 1][y].currentShape.boxWidth;
-            currentBox.currentShape.boxHeight = grid[x - 1][y].currentShape.boxHeight;
-
+            updateFromLeft(grid, x, y);
             //else neither above or left is done
           } else {
-
-            currentBox.downCount = grid[x - 1][y].downCount;
-            currentBox.sideCount = grid[x - 1][y].sideCount - 1;
             //Set current box master width and height based off left box
-            currentBox.currentShape.boxWidth = grid[x - 1][y].currentShape.boxWidth;
-            currentBox.currentShape.boxHeight = grid[x - 1][y].currentShape.boxHeight;
+            updateFromLeft(grid, x, y);
           }
         }
       }
