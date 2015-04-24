@@ -1,0 +1,21 @@
+#startButton{
+  width: 50px;
+  height: 50px;
+  border-radius: 5px;
+  background-color: gold;
+}
+div{
+  border: 5px solid black;
+  /*margin-right: auto;*/
+  /*margin-left: auto;*/
+  /*display: none;*/
+}
+#canvas{
+  height: 800px;
+  width: 800px;
+  overflow:hidden;
+  left:300px;
+  top: 100px;
+  position: fixed;
+  margin-bottom: 40px;
+}
