@@ -156,11 +156,11 @@ $(document).ready(function() {
       // Initilize and Draw grid
       drawGrid(initGrid());
       startDrawing();
-    }, $('input[name=refreshRate]').val()); //Repeat every second
+    }, $('input[name=RefreshRateValue]').val()); //Repeat every second
   }
 
   function changeRefreshRate(){
-    $('input[name=refreshRate]').change(function(event) {
+    $('input[name=RefreshRateValue]').change(function(event) {
       //Abort current interval
       clearTimeout(tid);
       //Start drawing again
@@ -176,3 +176,9 @@ $(document).ready(function() {
   });
 
  });
+
+// UTILITY FUNCTIONS
+function updateSliderValue(value){
+  $('input[name=RefreshRateValue]').value = this.value;
+  console.log("here");
+}
