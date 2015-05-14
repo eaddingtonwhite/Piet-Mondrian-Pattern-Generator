@@ -50,17 +50,17 @@ $(document).ready(function() {
 
     //Draw Box!
     $("<div></div>")
-      .addClass("my-div")
-      .css({
-        width: newBoxWidth * baseUnitPixelSize,
-        height: newBoxHeight * baseUnitPixelSize,
-        background: backgroundColorOptions[Math.floor(Math.random() * 6)],
-        left: x * baseUnitPixelSize,
-        top: y * baseUnitPixelSize,
-        display: 'block',
-        position: 'absolute'
-      })
-      .appendTo("#canvas");
+    .addClass("my-div")
+    .css({
+      width: newBoxWidth * baseUnitPixelSize,
+      height: newBoxHeight * baseUnitPixelSize,
+      background: backgroundColorOptions[Math.floor(Math.random() * 6)],
+      left: x * baseUnitPixelSize,
+      top: y * baseUnitPixelSize,
+      display: 'block',
+      position: 'absolute'
+    })
+    .appendTo("#canvas");
 
     //Update current grid cell with new box info
     currentBox.currentShape.boxWidth = newBoxWidth;
@@ -147,15 +147,32 @@ $(document).ready(function() {
     }
   }
 
-  /**
-   *On Start button hit start generating canvas on interval
-   **/
-  $("#startButton").click(function() {
-    setInterval(function() {
+  var tid;
+
+  function startDrawing(){
+    tid = setTimeout(function() {
       // Clean up old elements
       $(".my-div").remove();
       // Initilize and Draw grid
       drawGrid(initGrid());
+      startDrawing();
     }, $('input[name=refreshRate]').val()); //Repeat every second
+  }
+
+  function changeRefreshRate(){
+    $('input[name=refreshRate]').change(function(event) {
+      //Abort current interval
+      clearTimeout(tid);
+      //Start drawing again
+      startDrawing();
+    });
+  }
+
+  /**
+   *On Start button hit start generating canvas on interval
+   **/
+   $("#startButton").click(function() {
+    startDrawing();
   });
-});
+
+ });
