@@ -1,13 +1,13 @@
-$(document).ready(function () {
+$(document).ready(function() {
 
   function initGrid(grid) {
-    grid = new Array(40);
+    grid = new Array(60);
     //loop through rows
-    for (var x = 0; x < 39; x++) {
+    for (var x = 0; x < 59; x++) {
       //create columns
-      grid[x] = new Array(40);
+      grid[x] = new Array(60);
       //loop rows
-      for (var y = 0; y < 39; y++) {
+      for (var y = 0; y < 59; y++) {
         //Init values
         grid[x][y] = {
           sideCount: 0,
@@ -22,6 +22,14 @@ $(document).ready(function () {
     return grid;
   }
 
+  function getColors() {
+    colorOptions = [];
+    for (i = 0; i < 6; i++) {
+      colorOptions.push($('input[name=colorpicker' + i + ']').val())
+    }
+    return colorOptions;
+  }
+
   function drawBox(grid, x, y) {
 
     //Get passed grids height
@@ -29,7 +37,7 @@ $(document).ready(function () {
     var gridHeight = grid[0].length;
     var currentBox = grid[x][y];
     var baseUnitPixelSize = 20;
-    var backgroundColorOptions = ["#ff0000", "#eeff00", "#004cff", "#000000", "#ffffff", "#07680c"];
+    var backgroundColorOptions = getColors();
 
     //Calculate boxes width and length
     var newBoxWidth = Math.floor(Math.random() * (gridWidth - x)) + x;
@@ -144,6 +152,6 @@ $(document).ready(function () {
       $(".my-div").remove();
       // Initilize and Draw grid
       drawGrid(initGrid());
-    }, 1000); //Repeat every second
+    }, $('input[name=refreshRate]').val()); //Repeat every second
   });
 });

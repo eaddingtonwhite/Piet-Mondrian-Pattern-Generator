@@ -8,19 +8,45 @@
 </head>
 <body>
 
-    <h1>Piet Mondrian Generator</h1>
+  <h1>Piet Mondrian Generator</h1>
 
-    <!-- Start Button -->
-    <button id="startButton"></button>  <--Push ME!
-    <br>
-    <br>
+  <!-- Start Button -->
+  <button id="startButton">Start</button>
+  <br>
+  <br>
 
-    <!-- Where art is made -->
-    <div id="canvas"></div>
+  <h2>Refresh Rate</h2>
+  <input type="range" name="refreshRate" value="500" step="10" min="30" max="4000">
+  <br/>
 
-    <!-- Scripts * Put at bottom to help page load *-->
-    <script src="JS/librarys/jquery-2.1.3.min.js"></script>
-    <script type="text/javascript" src="JS/manipulate.js"></script>
+
+  <h2>Colors</h2>
+  <input name="colorpicker0" type="color" value="#ff0000">
+  <br/>
+
+  <input name="colorpicker1" type="color" value="#eeff00">
+  <br/>
+
+  <input name="colorpicker2" type="color" value="#004cff">
+  <br/>
+
+  <input name="colorpicker3" type="color" value="#000000">
+  <br/>
+
+  <input name="colorpicker4" type="color" value="#ffffff">
+  <br/>
+
+  <input name="colorpicker5" type="color" value="#07680c">
+  <br/>
+
+
+
+  <!-- Where art is made -->
+  <div id="canvas"></div>
+
+  <!-- Scripts * Put at bottom to help page load *-->
+  <script src="JS/librarys/jquery-2.1.3.min.js"></script>
+  <script type="text/javascript" src="JS/manipulate.js"></script>
 
 </body>
 </html>
