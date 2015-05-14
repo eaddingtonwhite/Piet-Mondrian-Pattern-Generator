@@ -1,13 +1,18 @@
 $(document).ready(function() {
 
   function initGrid(grid) {
-    grid = new Array(60);
+
+    //Figure out how many boxes to draw
+    numOfBoxesWide = parseInt(($(window).height()/20) + 1);
+    numOfBoxesTall = parseInt(($(window).width()/20) + 1);
+
+    grid = new Array(numOfBoxesWide);
     //loop through rows
-    for (var x = 0; x < 59; x++) {
+    for (var x = 0; x < numOfBoxesWide; x++) {
       //create columns
-      grid[x] = new Array(60);
+      grid[x] = new Array(numOfBoxesTall);
       //loop rows
-      for (var y = 0; y < 59; y++) {
+      for (var y = 0; y < numOfBoxesTall; y++) {
         //Init values
         grid[x][y] = {
           sideCount: 0,
@@ -60,7 +65,6 @@ $(document).ready(function() {
     //Update current grid cell with new box info
     currentBox.currentShape.boxWidth = newBoxWidth;
     currentBox.sideCount = newBoxWidth;
-
     currentBox.currentShape.boxHeight = newBoxHeight;
     currentBox.downCount = newBoxHeight;
   }
