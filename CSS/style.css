@@ -16,3 +16,8 @@ div{
   position: fixed;
   margin-bottom: 40px;
 }
+input[type=color] {
+  width: 20%;
+  height: 40px;
+  border: 2px solid grey;
+}
