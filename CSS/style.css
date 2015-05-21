@@ -1,23 +1,53 @@
 #startButton{
-  width: 50px;
+  width: 100%;
   height: 50px;
-  border-radius: 5px;
-  background-color: gold;
+  border-radius: 3px;
+  background-color: white;
 }
+
 div{
   border: 5px solid black;
 }
+
+input[type=number]{
+  width: 100%;
+  height: 30px;
+  background-color: black;
+  color:white;
+  border:none;
+}
+
+input[type=color]{
+  width: 100%;
+  height: 40px;
+}
+
 #canvas{
   height: 100%;
-  width: 90%;
+  width: 100%;
   overflow:hidden;
-  left:400px;
   top: 0px;
   position: fixed;
   margin-bottom: 40px;
+  margin-top: 8px;
 }
-input[type=color] {
-  width: 20%;
-  height: 40px;
-  border: 2px solid grey;
+
+#canvas.small{
+  left:400px;
+}
+
+#canvas.big{
+  left:70px;
+}
+
+.menu{
+  background-color: grey;
+}
+
+.menu.big {
+  width: 387px;
+}
+
+.menu.small {
+  width: 57px;
 }

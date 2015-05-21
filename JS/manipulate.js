@@ -1,10 +1,16 @@
 $(document).ready(function() {
 
+  /**
+   * This initilizes the 2D array that we will use to keep track of what boxes
+   * are currently being drawn and how big each generated box will be.
+   *
+   * Returns: The initilized array[][]
+   */
   function initGrid(grid) {
 
     //Figure out how many boxes to draw
-    numOfBoxesWide = parseInt(($(window).height()/20) + 1);
-    numOfBoxesTall = parseInt(($(window).width()/20) + 1);
+    numOfBoxesWide = parseInt(($(window).height() / 20) + 1);
+    numOfBoxesTall = parseInt(($(window).width() / 20) + 1);
 
     grid = new Array(numOfBoxesWide);
     //loop through rows
@@ -27,14 +33,27 @@ $(document).ready(function() {
     return grid;
   }
 
+  /**
+   * Helper function used to grab the colors to use from the color select
+   * boxes.
+   *
+   * Returns:  An array of the Hexadecimal string values of all the colors to
+   *           use.
+   */
   function getColors() {
+
     colorOptions = [];
-    for (i = 0; i < 6; i++) {
-      colorOptions.push($('input[name=colorpicker' + i + ']').val())
-    }
+    $('input[type=color]').each(function(index, el) {
+      colorOptions.push($(el).val());
+    });
+
     return colorOptions;
   }
 
+  /**
+   * When it is time to generate an actual colored box this is where the styled
+   * div element is generated and appended to the canvas div element.
+   */
   function drawBox(grid, x, y) {
 
     //Get passed grids height
@@ -50,17 +69,17 @@ $(document).ready(function() {
 
     //Draw Box!
     $("<div></div>")
-    .addClass("my-div")
-    .css({
-      width: newBoxWidth * baseUnitPixelSize,
-      height: newBoxHeight * baseUnitPixelSize,
-      background: backgroundColorOptions[Math.floor(Math.random() * 6)],
-      left: x * baseUnitPixelSize,
-      top: y * baseUnitPixelSize,
-      display: 'block',
-      position: 'absolute'
-    })
-    .appendTo("#canvas");
+      .addClass("my-div")
+      .css({
+        width: newBoxWidth * baseUnitPixelSize,
+        height: newBoxHeight * baseUnitPixelSize,
+        background: backgroundColorOptions[Math.floor(Math.random() * 6)],
+        left: x * baseUnitPixelSize,
+        top: y * baseUnitPixelSize,
+        display: 'block',
+        position: 'absolute'
+      })
+      .appendTo("#canvas");
 
     //Update current grid cell with new box info
     currentBox.currentShape.boxWidth = newBoxWidth;
@@ -88,6 +107,10 @@ $(document).ready(function() {
     grid[x][y].currentShape.boxHeight = grid[x - 1][y].currentShape.boxHeight;
   }
 
+  /**
+   * Loops through the initilized 2D array and generates the Piet Mondrian Esque
+   * pattern calling the drawBox function when it deems apropriate.
+   */
   function drawGrid(grid) {
     //Loop through rows
     for (var x = 0; x < grid.length - 1; x++) {
@@ -147,19 +170,28 @@ $(document).ready(function() {
     }
   }
 
+  //Global ID of current timeout used for changing refresh rate
   var tid;
 
-  function startDrawing(){
+  /**
+  * Draws a new Pattern at the defined refresh rate calls itself recursively
+  * after each time out finishes to draw the next pattern
+  */
+  function startDrawing() {
     tid = setTimeout(function() {
       // Clean up old elements
       $(".my-div").remove();
       // Initilize and Draw grid
       drawGrid(initGrid());
       startDrawing();
-    }, $('input[name=RefreshRateValue]').val()); //Repeat every second
+    }, $('input[name=RefreshRateValue]').val());
   }
 
-  function changeRefreshRate(){
+  /**
+   * Listens for refresh interval change and clears the current time out and
+   * starts a new refresh time out cycle drawing at the new set interval.
+   */
+  function changeRefreshRate() {
     $('input[name=RefreshRateValue]').change(function(event) {
       //Abort current interval
       clearTimeout(tid);
@@ -169,16 +201,26 @@ $(document).ready(function() {
   }
 
   /**
-   *On Start button hit start generating canvas on interval
+   * On Start button hit start generating canvas on interval
    **/
-   $("#startButton").click(function() {
+  $("#startButton").click(function() {
     startDrawing();
   });
 
- });
+});
 
 // UTILITY FUNCTIONS
-function updateSliderValue(value){
-  $('input[name=RefreshRateValue]').value = this.value;
-  console.log("here");
+
+/**
+ * Handles collapsing the side menu
+ */
+function collapseMenu() {
+
+  $('h1,h2,h3').hide();
+
+  //Increase canvas size
+  $('#canvas').addClass('big');
+
+  //Shrink Menu
+  $('.menu').addClass('small');
 }
