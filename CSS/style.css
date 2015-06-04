@@ -1,27 +1,21 @@
-h1{
+/*General Styling*/
+h1,h2{
   margin: 5px;
-  color: #3B001D;
+  color: #8A0546;
 }
-
 #startButton{
   width: 100%;
   height: 50px;
   border-radius: 3px;
   background-color: #49C331;
 }
-
+.menu{
+  background-color: grey;
+  height: 100%;
+}
 div{
   border: 5px solid black;
 }
-
-#menuCollapse{
-  height: 30px;
-  width: 100px;
-  margin-top: 5px;
-  background-color: #000;
-  color: white;
-}
-
 input[type=number]{
   width: 100%;
   height: 30px;
@@ -29,12 +23,10 @@ input[type=number]{
   color:white;
   border:none;
 }
-
 input[type=color]{
   width: 100%;
   height: 40px;
 }
-
 #canvas{
   height: 100%;
   width: 100%;
@@ -45,24 +37,23 @@ input[type=color]{
   margin-top: 8px;
 }
 
+/*Menu Collapse Stylings*/
+#menuCollapse{
+  height: 30px;
+  width: 100px;
+  margin-top: 5px;
+  background-color: #000;
+  color: white;
+}
 #canvas.small{
   left:400px;
 }
-
 #canvas.big{
   left:70px;
 }
-
-.menu{
-  background-color: grey;
-  /*border: 0px;*/
-  height: 100%;
-}
-
 .menu.big {
   width: 387px;
 }
-
 .menu.small {
   width: 57px;
 }
