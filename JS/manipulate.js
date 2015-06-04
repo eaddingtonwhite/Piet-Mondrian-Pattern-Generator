@@ -173,18 +173,25 @@ $(document).ready(function() {
   //Global ID of current timeout used for changing refresh rate
   var tid;
 
+  //Global boolean are we currently drawing a pattern or not
+  var isDrawing = false;
+
   /**
-  * Draws a new Pattern at the defined refresh rate calls itself recursively
-  * after each time out finishes to draw the next pattern
-  */
+   * Draws a new Pattern at the defined refresh rate calls itself recursively
+   * after each time out finishes to draw the next pattern
+   */
   function startDrawing() {
-    tid = setTimeout(function() {
-      // Clean up old elements
-      $(".my-div").remove();
-      // Initilize and Draw grid
-      drawGrid(initGrid());
-      startDrawing();
-    }, $('input[name=RefreshRateValue]').val());
+
+    //Check to make sure we should still be drawing
+    if (isDrawing) {
+      tid = setTimeout(function() {
+        // Clean up old elements
+        $(".my-div").remove();
+        // Initilize and Draw grid
+        drawGrid(initGrid());
+        startDrawing();
+      }, $('input[name=RefreshRateValue]').val());
+    }
   }
 
   /**
@@ -204,7 +211,28 @@ $(document).ready(function() {
    * On Start button hit start generating canvas on interval
    **/
   $("#startButton").click(function() {
-    startDrawing();
+
+    if (!isDrawing) {
+      //Set global isDrawing variable
+      isDrawing = true;
+      //Reformat Start button to stop button
+      $('#startButton').css({
+        background: 'red'
+      }).text('Stop');
+      //Start Drawing
+      startDrawing();
+    } else {
+      //Set global isDrawing variable
+      isDrawing = false;
+      //Stop current timeout
+      clearTimeout(tid);
+      //Clear canvas
+      $(".my-div").remove();
+      //Reformat stop button to start button
+      $('#startButton').css({
+        background: '#49C331'
+      }).text('Start');
+    }
   });
 
 });
