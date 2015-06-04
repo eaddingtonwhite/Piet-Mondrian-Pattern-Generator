@@ -45,6 +45,13 @@ input[type=color]{
   background-color: #000;
   color: white;
 }
+#menuCollapse.big{
+ margin-left: 290px;
+}
+#menuCollapse.small{
+  margin-left: 0px;
+  width: 60px;
+}
 #canvas.small{
   left:400px;
 }

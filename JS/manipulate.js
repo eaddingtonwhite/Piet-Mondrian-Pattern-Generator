@@ -242,13 +242,28 @@ $(document).ready(function() {
 /**
  * Handles collapsing the side menu
  */
+var menuExpanded = true; //Global for handling menu resize
+
 function collapseMenu() {
+  //SHRINK MENU
+  if (menuExpanded) {
+    menuExpanded = false; //Change global
+    $('h1,h2,h3').hide();
+    //Increase canvas size
+    $('#canvas').removeClass('small').addClass('big');
+    //Shrink Menu
+    $('.menu').removeClass('big').addClass('small');
+    $('#menuCollapse').removeClass('big').addClass('small').text('Expand');
 
-  $('h1,h2,h3').hide();
-
-  //Increase canvas size
-  $('#canvas').addClass('big');
-
-  //Shrink Menu
-  $('.menu').addClass('small');
+  //EXPAND MENU
+  }else{
+    menuExpanded = true; //Change global
+    $('h1,h2,h3').show();
+    //Shrink canvas size
+    $('#canvas').removeClass('big').addClass('small');
+    //Expand Menu
+    $('.menu').removeClass('small').addClass('big');
+    //Expand Collapse button and change text
+    $('#menuCollapse').addClass('big').removeClass('small').text('Collapse');
+  }
 }
