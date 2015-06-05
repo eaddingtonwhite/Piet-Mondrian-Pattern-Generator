@@ -39,7 +39,8 @@ input[type=color]{
 
 /*Menu Collapse Stylings*/
 #menuCollapse{
-  height: 30px;
+  border-radius: 10px;
+  height: 40px;
   width: 100px;
   margin-top: 5px;
   background-color: #000;
